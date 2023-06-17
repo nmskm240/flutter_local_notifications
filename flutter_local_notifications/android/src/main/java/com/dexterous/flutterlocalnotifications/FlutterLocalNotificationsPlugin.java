@@ -736,6 +736,25 @@ public class FlutterLocalNotificationsPlugin
       case Weekly:
         repeatInterval = 60000 * 60 * 24 * 7;
         break;
+      case Yearly:
+        LocalDateTime now = LocalDateTime.now();
+        if(now.year % 4 != 0) {
+          repeatInterval = 60000 * 60 * 24 * 365;
+        } else if (now.year % 100 != 0) {
+          if(now.month < 3) {
+            repeatInterval = 60000 * 60 * 24 * 366;
+          } else {
+            repeatInterval = 60000 * 60 * 24 * 365;
+          }
+        } else if (now.year % 400 != 0) {
+          repeatInterval = 60000 * 60 * 24 * 365;
+        } else {
+          if(now.month < 3) {
+            repeatInterval = 60000 * 60 * 24 * 366;
+          } else {
+            repeatInterval = 60000 * 60 * 24 * 365;
+          }
+        }
       default:
         break;
     }
